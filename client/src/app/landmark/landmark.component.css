@@ -1,0 +1,16 @@
+.landmark {
+  display: flex;
+  flex-direction: row;
+  max-width: 500px;
+}
+
+.landmark-photo {
+  width: 250px;
+  height: 250px;
+  background-color: red;
+}
+
+.landmark-details {
+  display: flex;
+  flex-direction: column;
+}

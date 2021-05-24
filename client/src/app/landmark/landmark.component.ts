@@ -1,18 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Landmark } from '../models/landmark';
 
 @Component({
   selector: 'app-landmark',
   template: `
-    <p>
-      landmark works!
-    </p>
+    <div class="card landmark">
+      <img [src]="landmark.photo_thumb" alt="" class="landmark-photo">
+
+      <div class="landmark-details">
+        <h2 class="landmark-title">{{ landmark.title }}</h2>
+        <p class="landmark-info">{{ landmark.short_info }}</p>
+      </div>
+    </div>
   `,
-  styles: [
-  ]
+  styleUrls: ['./landmark.component.css']
+
 })
 export class LandmarkComponent implements OnInit {
+  @Input() landmark: Landmark;
 
-  constructor() { }
+  constructor() {
+    this.landmark = {
+      photo_thumb: '',
+      title: '',
+      short_info: ''
+    }
+  }
 
   ngOnInit(): void {
   }

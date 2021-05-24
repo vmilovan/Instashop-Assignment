@@ -3,9 +3,12 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    Home page
-    <button type="button" class="btn btn-primary">Primary</button>
-    <router-outlet></router-outlet>
+    <header>
+      <app-login></app-login>
+    </header>
+    <main class="container">
+      <router-outlet></router-outlet>
+    </main>
   `,
   styles: []
 })
