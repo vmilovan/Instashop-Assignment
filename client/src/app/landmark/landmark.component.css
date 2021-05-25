@@ -1,7 +1,8 @@
 .landmark {
   display: flex;
   flex-direction: row;
-  max-width: 500px;
+  max-width: 690px;
+  max-height: 250px;
 }
 
 .landmark-photo {
@@ -13,4 +14,13 @@
 .landmark-details {
   display: flex;
   flex-direction: column;
+
+  padding: 0.75em;
+}
+
+.landmark-title {
+  text-align: center;
+}
+.landmark-title > a {
+  color: #333;
 }

@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <header>
+    <header class="navbar">
       <app-login></app-login>
     </header>
-    <main class="container">
+    <main class="container-fluid">
       <router-outlet></router-outlet>
     </main>
   `,

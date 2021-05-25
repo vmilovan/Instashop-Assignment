@@ -10,23 +10,24 @@ import { Landmark } from '../models/landmark';
     </section>
   `,
   styles: [
+    `
+      .landmark-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+      }
+    `
   ]
 })
 export class LandmarkListComponent implements OnInit {
-  landmarks: Landmark[] = [
-    {
-      title: 'test',
-      short_info: 'Lorem Ipsum la rem diago',
-      photo_thumb: ''
-    }
-  ];
+  landmarks: Landmark[] = [];
 
   constructor(private landmarkService: LandmarkService) { }
 
   ngOnInit(): void {
     this.landmarkService.getLandmarks().subscribe(landmarks => {
-      this.landmarks = landmarks;
-    })
+      this.landmarks = landmarks.sort((a, b) => a.order - b.order);
+    });
   }
 
 }
