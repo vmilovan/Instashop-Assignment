@@ -1,0 +1,15 @@
+<div *ngIf="(landmark$ | async) as landmark; else loading">
+  <!-- <img [src]="" alt=""> -->
+  <h2>{{ landmark.title }}</h2>
+  <p class="landmark-shortinfo">{{ landmark.short_info }}</p>
+  <p class="landmark-description">{{ landmark.description }}</p>
+  <p class="landmark-link">
+    <a [href]="landmark.url" target="_blank">{{ landmark.url }}</a>
+  </p>
+</div>
+
+<ng-template #loading>
+
+</ng-template>
+
+<app-upload-file></app-upload-file>

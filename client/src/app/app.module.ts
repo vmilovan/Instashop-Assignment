@@ -14,6 +14,7 @@ import { LoginModalComponent } from './login/login-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthInterceptor } from './http.interceptor';
+import { UploadFileComponent } from './upload-file/upload-file.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthInterceptor } from './http.interceptor';
     LandmarkDetailsComponent,
     LoginComponent,
     LoginModalComponent,
-    HomeComponent
+    HomeComponent,
+    UploadFileComponent
   ],
   imports: [
     BrowserModule,

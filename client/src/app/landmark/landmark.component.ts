@@ -8,7 +8,7 @@ import { Landmark } from '../models/landmark';
       <img [src]="landmark.photo_thumb" alt="" class="landmark-photo">
 
       <div class="landmark-details">
-        <h2 class="landmark-title"><a class="landmark-title__link" [routerLink]="['./landmark-details']">{{ landmark.title }}</a></h2>
+        <h2 class="landmark-title"><a class="landmark-title__link" [routerLink]="['./landmark-details']" [queryParams]="{id: landmark.objectId}">{{ landmark.title }}</a></h2>
         <p class="landmark-info">{{ landmark.short_info }}</p>
       </div>
     </div>
@@ -21,6 +21,7 @@ export class LandmarkComponent implements OnInit {
 
   constructor() {
     this.landmark = {
+      objectId: '',
       photo_thumb: '',
       title: '',
       short_info: '',

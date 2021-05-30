@@ -1,6 +1,7 @@
 import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 
 const guestUser: User = {
@@ -16,6 +17,13 @@ const USER_STORAGE_KEY = 'user';
 })
 export class AuthService {
   _user = new BehaviorSubject<User>(guestUser);
+
+  get isAuthenticated() {
+    return this._user.asObservable().pipe(
+      map((user) => user.emailVerified && user.sessionToken !== '' && user.username === 'admin'),
+      tap(user => console.log(user))
+    );
+  }
 
   get currentUser() {
     return this._user.value;

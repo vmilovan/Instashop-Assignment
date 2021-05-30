@@ -31,6 +31,7 @@ const dashboard = new ParseDashboard(
         masterKey: process.env.MASTER_KEY || '',
         serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
         appName: 'DubaiLandmarks Dashboard',
+        cloud: `${path.join(__dirname, 'cloud.js')}`,
       },
     ],
   },
