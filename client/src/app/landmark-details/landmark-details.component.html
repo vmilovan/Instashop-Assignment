@@ -1,5 +1,5 @@
 <div *ngIf="(landmark$ | async) as landmark; else loading">
-  <!-- <img [src]="" alt=""> -->
+  <app-landmark-image [imgSrc]="landmark.photo_thumb.url"></app-landmark-image>
   <h2>{{ landmark.title }}</h2>
   <p class="landmark-shortinfo">{{ landmark.short_info }}</p>
   <p class="landmark-description">{{ landmark.description }}</p>
