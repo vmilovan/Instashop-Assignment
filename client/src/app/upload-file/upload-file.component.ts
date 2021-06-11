@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UploadFileService } from './upload-file.service';
 
 @Component({
   selector: 'app-upload-file',
   template: `
-    <div class="custom-file">
-      <input type="file" class="custom-file-input" id="customFile" (change)="fileUploadChange($event)">
-      <label class="custom-file-label" for="customFile">Choose file</label>
-    </div>
+    <button class="btn btn-primary" (click)="fileInput.click()">{{ file ? file.name : 'Upload image' }}</button>
+    <input hidden type="file" (change)="fileUploadChange(fileInput.files)" #fileInput>
   `,
-  styles: [
-  ]
+  styles: []
 })
 export class UploadFileComponent implements OnInit {
+  file: File = null;
 
-  constructor() { }
+  constructor(private uploadFileService: UploadFileService) { }
 
   ngOnInit(): void {
   }
 
-  fileUploadChange(event: any) {
-    console.log(event);
+  fileUploadChange(files: FileList) {
+    if (!files) return;
+    this.file = files.item(0);
+    this.uploadFileService.upload(this.file, 'aWN0HS8Hm0').subscribe();
   }
 
 }

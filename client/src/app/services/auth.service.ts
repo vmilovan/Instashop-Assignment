@@ -1,4 +1,4 @@
-import { HttpClient, JsonpClientBackend } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -32,7 +32,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
-    this.http.post<User>(`http://localhost:5000/parse/login`, { username, password }).subscribe({
+    this.http.post<User>('login', { username, password }).subscribe({
       next: (user) => {
         this._user.next(user);
         this.saveUserToLocalstorage(user);
@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   logout() {
-    this.http.post<any>(`http://localhost:5000/parse/logout`, {}).subscribe({
+    this.http.post<any>('logout', {}).subscribe({
       next: () => {
         this._user.next(guestUser);
         this.deleteUserFromLocalStorage();
@@ -53,10 +53,10 @@ export class AuthService {
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
   }
 
-  getUserFromLocalStorage() {
+  getUserFromLocalStorage(): User {
     let user: any = localStorage.getItem(USER_STORAGE_KEY);
     if (user) {
-      user = JSON.parse(user);
+      user = JSON.parse(user) as User;
     } else {
       user = guestUser;
     }
@@ -65,6 +65,18 @@ export class AuthService {
 
   deleteUserFromLocalStorage() {
     localStorage.removeItem(USER_STORAGE_KEY);
+  }
+
+  getUserSession() {
+    const localUser = this.getUserFromLocalStorage();
+    const headers = new HttpHeaders()
+      .set('X-Parse-Session-Token', localUser.sessionToken);
+
+    console.log({ headers });
+
+    this.http.get<User>('users/me', { headers }).subscribe(user => {
+      this._user.next(user);
+    })
   }
 
 }

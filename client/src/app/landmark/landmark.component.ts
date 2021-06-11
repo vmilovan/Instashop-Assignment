@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Landmark } from '../models/landmark';
+import { ILandmark, Landmark } from '../models/landmark';
 
 @Component({
   selector: 'app-landmark',
   template: `
     <div class="card landmark">
-      <img [src]="landmark.photo_thumb" alt="" class="landmark-photo">
+      <img [src]="landmark.photo_thumb.url" alt="" class="landmark-photo">
 
       <div class="landmark-details">
         <h2 class="landmark-title"><a class="landmark-title__link" [routerLink]="['./landmark-details']" [queryParams]="{id: landmark.objectId}">{{ landmark.title }}</a></h2>
@@ -17,17 +17,16 @@ import { Landmark } from '../models/landmark';
 
 })
 export class LandmarkComponent implements OnInit {
-  @Input() landmark: Landmark;
-
-  constructor() {
-    this.landmark = {
-      objectId: '',
-      photo_thumb: '',
-      title: '',
-      short_info: '',
-      order: 0
-    }
+  private _landmark: Landmark;
+  get landmark() {
+    return this._landmark;
   }
+
+  @Input() set landmark(value: ILandmark) {
+    this._landmark = new Landmark(value);
+  };
+
+  constructor() { }
 
   ngOnInit(): void {
   }

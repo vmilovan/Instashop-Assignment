@@ -15,6 +15,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthInterceptor } from './http.interceptor';
 import { UploadFileComponent } from './upload-file/upload-file.component';
+import { BaseApiUrlInterceptor } from './baseapiurl.interceptor';
+import { environment } from '../environments/environment';
+import { LandmarkImageComponent } from './landmark-image/landmark-image.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { UploadFileComponent } from './upload-file/upload-file.component';
     LoginComponent,
     LoginModalComponent,
     HomeComponent,
-    UploadFileComponent
+    UploadFileComponent,
+    LandmarkImageComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +39,14 @@ import { UploadFileComponent } from './upload-file/upload-file.component';
     NgbModule,
   ],
   providers: [
+    {
+      provide: 'BASE_API_URL', useValue: environment.API_URL
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseApiUrlInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
