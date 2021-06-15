@@ -1,6 +1,7 @@
-<div *ngIf="(landmark$ | async) as landmark; else loading">
+<div *ngIf="(landmark$ | async) as landmark">
   <app-landmark-image [imgSrc]="landmark.photo_thumb.url"></app-landmark-image>
-  <h2>{{ landmark.title }}</h2>
+  <h2 (click)="editLandmark(landmark, editLandmarkModal)" [ngClass]="{ clickable: true }">{{ landmark.title }} <i
+      class="bi bi-pencil"></i></h2>
   <p class="landmark-shortinfo">{{ landmark.short_info }}</p>
   <p class="landmark-description">{{ landmark.description }}</p>
   <p class="landmark-link">
@@ -8,8 +9,8 @@
   </p>
 </div>
 
-<ng-template #loading>
-
+<ng-template #editLandmarkModal let-modal>
+  <div class="modal-body">
+    <app-landmark-details-edit></app-landmark-details-edit>
+  </div>
 </ng-template>
-
-<app-upload-file></app-upload-file>

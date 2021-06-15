@@ -1,16 +1,20 @@
-// const { Parse } = require('../node_modules/parse/node');
 const sharp = require('sharp');
-
-// Parse.Cloud.beforeSave('DumbaiLandmarks', request => {
-//   console.log(request);
-//   const photo = request.object.get('photo');
-//   const data = sharp(photo).resize(250, 250).jpeg().toBuffer();
-//   request.object.set('photo_thumb', data);
-// });
-
 const fs = require('fs/promises');
+const { bytesToMegaBytes } = require('../helpers');
 
-Parse.Cloud.beforeSave('DubaiLandmarks', async (request, response) => {
+const MAX_UPLOAD_FILE_SIZE = 5;
+
+Parse.Cloud.beforeSaveFile(async request => {
+  // check if uploaded file size is bigger than 5 MB.
+  const { fileSize } = request;
+  const fileSizeInMB = bytesToMegaBytes(fileSize);
+
+  if (Math.ceil(fileSizeInMB) > MAX_UPLOAD_FILE_SIZE) {
+    throw new Parse.Error(400, `You cannot exceed max file size of ${MAX_UPLOAD_FILE_SIZE} MB.`);
+  }
+});
+
+Parse.Cloud.beforeSave('DubaiLandmarks', async request => {
   const landmark = request.object;
   const picture = landmark.get('photo');
   const pictureBase64 = await picture.getData();
@@ -29,17 +33,3 @@ Parse.Cloud.beforeSave('DubaiLandmarks', async (request, response) => {
   landmark.set('photo_thumb', thumbFile);
   landmark.set('photo', photoFile);
 });
-
-// Parse.
-// Returning an already saved file
-// Parse.Cloud.beforeSaveFile((request) => {
-//   const { user } = request;
-//   const avatar = user.get('avatar'); // this is a Parse.File that is already saved to the user object
-//   return avatar;
-// });
-
-// Saving a different file from uri
-// Parse.Cloud.beforeSaveFile((request) => {
-//   const newFile = new Parse.File('some-file-name.txt', { uri: 'www.somewhere.com/file.txt' });
-//   return newFile;
-// });

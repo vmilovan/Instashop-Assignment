@@ -18,6 +18,8 @@ import { UploadFileComponent } from './upload-file/upload-file.component';
 import { BaseApiUrlInterceptor } from './baseapiurl.interceptor';
 import { environment } from '../environments/environment';
 import { LandmarkImageComponent } from './landmark-image/landmark-image.component';
+import { LazyLoadImageDirective } from './directives/lazy-load-image.directive';
+import { LandmarkDetailsEditComponent } from './landmark-details-edit/landmark-details-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { LandmarkImageComponent } from './landmark-image/landmark-image.componen
     LoginModalComponent,
     HomeComponent,
     UploadFileComponent,
-    LandmarkImageComponent
+    LandmarkImageComponent,
+    LazyLoadImageDirective,
+    LandmarkDetailsEditComponent
   ],
   imports: [
     BrowserModule,

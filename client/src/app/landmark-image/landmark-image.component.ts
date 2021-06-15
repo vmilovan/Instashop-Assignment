@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-landmark-image',
   template: `
-    <img [src]="imgSrc" alt="" (click)="openFullSizeImage(fullSizeImg)" *ngIf="!isFullSize; else fullSizeImg">
+    <img appLazyLoadImage [src]="imgSrc" imgPlaceholderSrc="assets/images/landmark-placeholder.png" (click)="openFullSizeImage(fullSizeImg)" *ngIf="!isFullSize; else fullSizeImg">
 
     <ng-template #fullSizeImg let-modal>
       <div class="modal-body">
@@ -23,6 +23,7 @@ export class LandmarkImageComponent implements OnInit {
   constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
+
   }
 
   async openFullSizeImage(content) {

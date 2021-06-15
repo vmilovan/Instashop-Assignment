@@ -7,9 +7,6 @@ export class UploadFileService {
   constructor(private http: HttpClient) { }
 
   upload(file: File, landmarkId: string) {
-    const data = new FormData();
-    data.append('file', file);
-
     const headers = new HttpHeaders()
       .set('Content-Type', 'image/jpeg');
 

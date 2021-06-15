@@ -5,7 +5,7 @@ import { ILandmark, Landmark } from '../models/landmark';
   selector: 'app-landmark',
   template: `
     <div class="card landmark">
-      <img [src]="landmark.photo_thumb.url" alt="" class="landmark-photo">
+      <img appLazyLoadImage [src]="landmark.photo_thumb.url" placeholderImg="assets/images/landmark-placeholder.png" class="landmark-photo">
 
       <div class="landmark-details">
         <h2 class="landmark-title"><a class="landmark-title__link" [routerLink]="['./landmark-details']" [queryParams]="{id: landmark.objectId}">{{ landmark.title }}</a></h2>

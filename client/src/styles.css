@@ -10,3 +10,20 @@ body {
   margin: 0;
   min-height: 100vh;
 }
+
+.form-btn-group {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-btn-group > button + button {
+  margin-left: 1rem;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover i {
+  font-size: calc(100% * 1.1);
+}

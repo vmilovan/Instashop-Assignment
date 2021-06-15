@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   openLoginModal() {
-    this.modalService.open(LoginModalComponent);
+    this.modalService.open(LoginModalComponent, { centered: true });
   }
 
   logout() {
