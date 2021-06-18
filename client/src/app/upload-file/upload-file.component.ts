@@ -15,7 +15,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       display: flex;
       align-items: center;
       border: 2px dashed #ced4da;
-      margin: .5rem;
+      margin: .5rem 0;
       padding: 0.5rem;
       border-radius: 5px;
     }
@@ -23,6 +23,16 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       margin-right: 1.2rem;
       padding: 0.25rem;
       border: 1px solid #ddd;
+    }
+    @media (max-width: 385px) {
+      .upload-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      img {
+        margin: 0;
+        margin-bottom: 1rem;
+      }
     }
   `
   ],

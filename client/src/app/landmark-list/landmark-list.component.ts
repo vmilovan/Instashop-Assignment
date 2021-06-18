@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { LandmarkService } from '../landmark.service';
-import { Landmark } from '../models/landmark';
 
 @Component({
   selector: 'app-landmark-list',
   template: `
-    <section class="landmark-list">
-      <app-landmark *ngFor="let landmark of landmarks" [landmark]="landmark"></app-landmark>
+    <section class="container" >
+      <div class="row mb-4" *ngFor="let landmark of (landmarks | async)">
+        <div class="col">
+          <app-landmark [landmark]="landmark"></app-landmark>
+        </div>
+      </div>
     </section>
   `,
   styles: [
@@ -20,14 +24,14 @@ import { Landmark } from '../models/landmark';
   ]
 })
 export class LandmarkListComponent implements OnInit {
-  landmarks: Landmark[] = [];
+  landmarks = this.landmarkService.landmarks$.pipe(
+    map(landmarks => landmarks.sort((a, b) => a.order - b.order))
+  );
 
   constructor(private landmarkService: LandmarkService) { }
 
   ngOnInit(): void {
-    this.landmarkService.getLandmarks().subscribe(landmarks => {
-      this.landmarks = landmarks.sort((a, b) => a.order - b.order);
-    });
+    this.landmarkService.fetchLandmarks();
   }
 
 }

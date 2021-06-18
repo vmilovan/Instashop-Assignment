@@ -1,12 +1,20 @@
-import { AfterViewInit, Directive, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 
 @Directive({
   selector: 'img[appLazyLoadImage]'
 })
 export class LazyLoadImageDirective implements OnInit {
+  private _src: string;
+
   @HostBinding('attr.src') srcAttr;
-  @Input() src: string;
-  @Input() placeholderImg: string;
+
+  get src() {
+    return this._src;
+  }
+  @Input() set src(value: string) {
+    this._src = value;
+    this.setImageSrc();
+  }
 
   supportsNativeLazyLoad = false;
 
@@ -19,11 +27,8 @@ export class LazyLoadImageDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    console.count('test');
     if (this.canLazyLoad()) {
       this.lazyLoadImage();
-    } else {
-      this.setImageSrc();
     }
   }
 
@@ -36,18 +41,13 @@ export class LazyLoadImageDirective implements OnInit {
   }
 
   private setImageSrc() {
-    if (!this.src) {
-      this.srcAttr = this.placeholderImg;
-    } else {
-      this.srcAttr = this.src;
-    }
+    this.srcAttr = this.src;
   }
 
   private lazyLoadImage() {
     const obs = new IntersectionObserver(entries => {
       entries.forEach(({ isIntersecting }) => {
         isIntersecting ? this.setImageSrc() : obs.unobserve(this.elem);
-        console.log(isIntersecting, this.srcAttr);
       })
     });
 

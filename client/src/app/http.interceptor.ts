@@ -47,10 +47,6 @@ export class AuthInterceptor implements HttpInterceptor {
                 break;
               }
               default: {
-                const { error } = err;
-                if (error) {
-                  console.log(error);
-                }
                 break;
               }
             }

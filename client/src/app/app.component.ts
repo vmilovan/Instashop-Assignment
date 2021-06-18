@@ -4,12 +4,13 @@ import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   template: `
-    <header class="navbar">
-      <app-login></app-login>
-    </header>
-    <main class="container-fluid">
-      <router-outlet></router-outlet>
-    </main>
+    <div class="container">
+      <app-navbar></app-navbar>
+
+      <main class="container-fluid">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
   `,
   styles: []
 })

@@ -20,6 +20,8 @@ import { environment } from '../environments/environment';
 import { LandmarkImageComponent } from './landmark-image/landmark-image.component';
 import { LazyLoadImageDirective } from './directives/lazy-load-image.directive';
 import { LandmarkDetailsEditComponent } from './landmark-details-edit/landmark-details-edit.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { LandmarkDetailsEditComponent } from './landmark-details-edit/landmark-d
     UploadFileComponent,
     LandmarkImageComponent,
     LazyLoadImageDirective,
-    LandmarkDetailsEditComponent
+    LandmarkDetailsEditComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,9 @@ import { LandmarkDetailsEditComponent } from './landmark-details-edit/landmark-d
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
+    NgxUiLoaderModule.forRoot({
+      hasProgressBar: false
+    })
   ],
   providers: [
     {

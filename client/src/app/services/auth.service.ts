@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 
 const guestUser: User = {
@@ -17,12 +17,12 @@ const USER_STORAGE_KEY = 'user';
 })
 export class AuthService {
   _user = new BehaviorSubject<User>(guestUser);
+  isAuthenticated$ = this._user.asObservable().pipe(
+    map(() => this.isAuthenticated)
+  );
 
   get isAuthenticated() {
-    return this._user.asObservable().pipe(
-      map((user) => user.emailVerified && user.sessionToken !== '' && user.username === 'admin'),
-      tap(user => console.log(user))
-    );
+    return this.currentUser.emailVerified && this.currentUser.sessionToken !== '' && this.currentUser.username === 'admin';
   }
 
   get currentUser() {
@@ -69,13 +69,15 @@ export class AuthService {
 
   getUserSession() {
     const localUser = this.getUserFromLocalStorage();
+    if (!localUser) return;
+
     const headers = new HttpHeaders()
       .set('X-Parse-Session-Token', localUser.sessionToken);
 
-    console.log({ headers });
-
     this.http.get<User>('users/me', { headers }).subscribe(user => {
       this._user.next(user);
+    }, () => {
+      this.deleteUserFromLocalStorage();
     })
   }
 

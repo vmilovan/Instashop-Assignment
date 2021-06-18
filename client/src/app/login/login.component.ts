@@ -8,7 +8,7 @@ import { LoginModalComponent } from './login-modal.component';
 @Component({
   selector: 'app-login',
   template: `
-    <button class="btn primary-btn" (click)="openLoginModal()" *ngIf="!(isAuthenticated$ | async) as isLoggedIn; else logoutBtn">Login</button>
+    <button class="btn btn-outline-primary" (click)="openLoginModal()" *ngIf="!(isAuthenticated$ | async) as isLoggedIn; else logoutBtn">Login</button>
     <ng-template #logoutBtn>
       <button class="btn primary-btn" (click)="logout()">Logout</button>
     </ng-template>
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       this.modalService.dismissAll();
     })
 
-    this.isAuthenticated$ = this.authService.isAuthenticated;
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
   }
 
   openLoginModal() {
