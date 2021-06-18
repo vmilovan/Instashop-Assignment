@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.1.
 
+## Requirements
+
+Project requires Nodejs 14+ to be installed on your computer.
+
 ## Before running
 
 Run `npm install` in both client and server folders.
